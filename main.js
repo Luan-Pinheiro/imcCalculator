@@ -1,86 +1,94 @@
 class Data {
-    constructor(nome, sobrenome, peso, altura) {
-        this.nome = nome,
-        this.sobrenome = sobrenome,
-        this.peso = peso,
-        this.altura = altura;
+    constructor(name, surname, weight, height) {
+        this.name = name,
+        this.surname = surname,
+        this.weight = weight,
+        this.height = height;
     }
 }
 
 let dataVector = [];
-
 document.querySelector('#dataRes').style.display = 'none';
 
-function escopoDeDadosFormulario(){
-    console.log("FOI escopoDeDadosFormulario()");
-    const formulario = document.querySelector('.form');
+function formDataScope(){
+    document.querySelector('#dataRes').style.display = 'block';
+    const info = document.querySelector('#info');
+    //const insertInfoButton = document.querySelector('.botaoenviar');
+    //const reloadButton = document.querySelector('.botao');
 
-    formulario.addEventListener('submit', getFormSubmit);
+    //insertInfoButton.addEventListener('click', getFormSubmit, false);
+    //reloadButton.addEventListener('click', clear, false);
 
-    function getFormSubmit(evt){
-        evt.preventDefault();
+    const name = info.querySelector('.nome').value;
+    const surname = info.querySelector('.sobrenome').value;
+    const weight = info.querySelector('.peso').value;
+    const height = info.querySelector('.altura').value;
 
-        console.log("FOI getFormSubmit(evt)");
+    let mainDataBase = new Data(name, surname, weight, height);
 
-        const nome = formulario.querySelector('.nome').value;
-        const sobrenome = formulario.querySelector('.sobrenome').value;
-        const peso = formulario.querySelector('.peso').value;
-        const altura = formulario.querySelector('.altura').value;
+    return mainDataBase;
+}
 
-        let mainDataBase = new Data(nome, sobrenome, peso, altura);
+function seeData(){
+    dataVector.push(formDataScope());
+    console.log(dataVector);
 
-        function seeData(){
-            let i = 0;
-            console.log("FOI seeData()");
-            dataVector.push(mainDataBase);
-            console.log(dataVector);
-            document.querySelector('#dataRes').style.display = 'block';
-            let registered = document.querySelector('#resp');
-            while(i< dataVector.length){
-                registered.innerHTML += `ID do usuário:000${i+1}<br>`;
-                registered.innerHTML += `Nome: ${dataVector[i].nome}<br>`;
-                registered.innerHTML += `Sobrenome: ${dataVector[i].sobrenome}<br>`;
-                registered.innerHTML += `Peso: ${dataVector[i].peso}kg <br>`;
-                registered.innerHTML += `Altura: ${dataVector[i].altura}cm\n<br>`;
-                registered.innerHTML += `IMC: Calculando...<br>`;
-                i++;    
-            }
-            return dataVector;
-        }
-        seeData();
+    const index = dataVector.length-1;
+
+    let registered = document.querySelector('#resp');
+    let mHeiht = dataVector[index].height/100
+    let imc = dataVector[index].weight/(mHeiht*mHeiht);
+    let state = '';
+    if(imc < 18.5)
+        state = 'Magreza';
+    if(imc >= 18.5 && imc<=24.9)
+        state = 'Ideal';
+    if(imc >= 25 && imc<=29)
+        state = 'Sobrepeso';
+    if(imc >= 30 && imc<=39.9)
+        state = 'Obesidade';
+    if(imc >= 40)
+        state = 'Obesidade Mórbida';
+
+    registered.innerHTML += "________________________<br>";
+    registered.innerHTML += `ID do usuário:${dataVector.length}<br>`;
+    registered.innerHTML += `Nome: ${dataVector[index].name}<br>`;
+    registered.innerHTML += `Sobrenome: ${dataVector[index].surname}<br>`;
+    registered.innerHTML += `Peso: ${dataVector[index].weight}kg <br>`;
+    registered.innerHTML += `Altura: ${dataVector[index].height}cm\n<br>`;
+    registered.innerHTML += `IMC: ${imc.toFixed(1)} correspondente à ${state}<br><br>`;
+} 
+
+function isNumber(name, surname, weight, height) {
+     let verif = false;
+
+
+    if(isNaN(parseFloat(name)) && isNaN(parseFloat(surname)) && !isNaN(parseFloat(weight)) && !isNaN(parseFloat(height))){
+        verif = true;
     }
 
+    return verif;
 }
-
-function isNumber(n) {
-    return !isNaN(parseFloat(n)) && isFinite(n);
-}
-
 function verify(){
-    const formulario = document.querySelector('.form');
-
+    const info = document.querySelector('#info');
     const objAux = {
-        nome: '',
-        sobrenome: '',
-        peso: '',
-        altura: ''
-        
+        name: '',
+        surname: '',
+        weight: '',
+        height: ''
     }
+    objAux.name = info.querySelector('.nome').value;
+    objAux.surname = info.querySelector('.sobrenome').value;
+    objAux.weight = info.querySelector('.peso').value;
+    objAux.height = info.querySelector('.altura').value;
 
-    objAux.nome = formulario.querySelector('.nome').value;
-    objAux.sobrenome = formulario.querySelector('.sobrenome').value;
-    objAux.peso = formulario.querySelector('.peso').value;
-    objAux.altura = formulario.querySelector('.altura').value;
-
-    (isNumber(objAux.peso) && isNumber(objAux.altura)) ? escopoDeDadosFormulario() : parar();
-
+    let aux = isNumber(objAux.name, objAux.surname,objAux.weight, objAux.height);
+    (aux) ? seeData() : stop();
 }
-
-function limpar(){
-    location.reload();
+function clear(){
+    location.reload(true);
 }
-
-function parar(){
-    alert("Insira valores válidos");
-    location.reload();
+function stop(){
+    alert("Insira valores válidos e preencha os campos corretamente!");
+    clear();
 }
