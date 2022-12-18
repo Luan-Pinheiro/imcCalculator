@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="balanca.png">
+    <title>Cadastro - IMC</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <header>
+        <h1>Cadastro - IMC</h1>
+    </header>
+    <section>  
+        <form action="" class="form">
+            <div class="caixa">
+                <div class="caixa1">
+                    <img src="icon.png" id="img">
+                </div>
+                <div class="caixa2">
+                    <p id="texto">Insira os Dados</p>
+                </div>
+            </div>
+            <div id="info">
+                <p class="parag">Nome: <br><input type="text" class="nome"></p>
+                <p class="parag">Sobrenome: <br><input type="text" class="sobrenome"></p>
+                <p class="parag">Peso: <br><input type="text" class="peso"></p>
+                <p class="parag">Altura: <br><input type="text" class="altura"></p>
+                <button class="botaoenviar" onclick="verify()">Enviar dados</button>
+                <button class="botao" onclick="limpar()">Limpar dados</button>
+            </div>
+        </form>
+        <section id="dataRes" onload="seeData()">
+            <div id="resD">
+                <p id="resp"></p>
+            </div>
+        </section>
+    </section>
+    <footer>
+        <p>&#64; luanp_azvd</p>
+    </footer>
+    <script src="main.js"></script>
+</body>
+</html>
