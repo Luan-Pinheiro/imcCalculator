@@ -32,24 +32,17 @@ input{
     font: bold 21px Times;
     color: whitesmoke;
 }
-.botao{
-    background-color: rgb(221, 22, 22);
-    font: bold 21px Times;
-    color: rgb(214, 203, 203);
-    text-shadow: 1px 1px 2px black;
-}
-.botaoenviar{
-    background-color: rgb(44, 107, 25);
-    font: bold 21px Times;
-    color: rgb(214, 203, 203);
-    text-shadow: 1px 1px 2px black;
-}
+
 footer{
     color: whitesmoke;
     text-align: center;
     font: normal 13pt Times;
 }
 button{
+    background-color: rgb(221, 22, 22);
+    font: bold 21px Times;
+    color: rgb(214, 203, 203);
+    text-shadow: 1px 1px 2px black;
     box-shadow: 5px 5px 7px rgba(0, 0, 0, 0.295);
     border-radius: 7px;
 }
@@ -78,23 +71,29 @@ button{
 #res{
     padding-top: 5%;
     height: auto;
-    text-align: center;
+    padding-top: 1%;
+    font: bold 21px Times;
 }
 #dataRes{
     background-color: rgba(167, 62, 62, 0.726);
     text-shadow: 1px 1px 1px rgb(71, 70, 70);
     margin-top: 5%;
+    text-align: center;
     color: rgb(172, 156, 156);
     height: auto;
     border-radius: 21px;
     font-size: large;
     position: relative;
-    width: 285px;
+    width: 400px;
 }
-#resD{
-    padding-top: 1%;
-    font: bold 21px Times;
-    
+#resp{
+    background-color: rgba(224, 15, 50, 0.897);
+    text-align: left;
+    font-size: larger;
+    color: rgb(250, 207, 207);
+    height: auto;
+    border-radius: 19px;
+    width: 400px;
 }
 
     

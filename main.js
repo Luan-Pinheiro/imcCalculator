@@ -13,12 +13,6 @@ document.querySelector('#dataRes').style.display = 'none';
 function formDataScope(){
     document.querySelector('#dataRes').style.display = 'block';
     const info = document.querySelector('#info');
-    //const insertInfoButton = document.querySelector('.botaoenviar');
-    //const reloadButton = document.querySelector('.botao');
-
-    //insertInfoButton.addEventListener('click', getFormSubmit, false);
-    //reloadButton.addEventListener('click', clear, false);
-
     const name = info.querySelector('.nome').value;
     const surname = info.querySelector('.sobrenome').value;
     const weight = info.querySelector('.peso').value;
@@ -31,32 +25,32 @@ function formDataScope(){
 
 function seeData(){
     dataVector.push(formDataScope());
-    console.log(dataVector);
 
     const index = dataVector.length-1;
 
     let registered = document.querySelector('#resp');
+    let item = document.createElement('option')
     let mHeiht = dataVector[index].height/100
     let imc = dataVector[index].weight/(mHeiht*mHeiht);
     let state = '';
     if(imc < 18.5)
-        state = 'Magreza';
+        state = 'Magro';
     if(imc >= 18.5 && imc<=24.9)
         state = 'Ideal';
     if(imc >= 25 && imc<=29)
         state = 'Sobrepeso';
     if(imc >= 30 && imc<=39.9)
-        state = 'Obesidade';
+        state = 'Obeso';
     if(imc >= 40)
-        state = 'Obesidade Mórbida';
+        state = 'Obeso mórbido';
 
-    registered.innerHTML += "________________________<br>";
-    registered.innerHTML += `ID do usuário:${dataVector.length}<br>`;
-    registered.innerHTML += `Nome: ${dataVector[index].name}<br>`;
-    registered.innerHTML += `Sobrenome: ${dataVector[index].surname}<br>`;
-    registered.innerHTML += `Peso: ${dataVector[index].weight}kg <br>`;
-    registered.innerHTML += `Altura: ${dataVector[index].height}cm\n<br>`;
-    registered.innerHTML += `IMC: ${imc.toFixed(1)} correspondente à ${state}<br><br>`;
+    item.innerHTML += `ID:${dataVector.length}`;        
+    item.text += `  ${dataVector[index].name} `;
+    item.text += `  ${dataVector[index].surname} `;
+    item.text += `  ${dataVector[index].weight}kg `;
+    item.text += `  ${dataVector[index].height}cm `;
+    item.text += `  ${imc.toFixed(1)} ${state}`;
+    registered.appendChild(item);
 } 
 
 function isNumber(name, surname, weight, height) {
@@ -69,7 +63,32 @@ function isNumber(name, surname, weight, height) {
 
     return verif;
 }
+
+const button = document.getElementsByTagName("button");
+
+function changeColorb1(){
+    button[0].style.background = "#d6cbcb";
+    button[0].style.color = "black"
+}  
+function returnOriginalColorb1(){
+    button[0].style.background = "#dd1616";
+    button[0].style.color = "#d6cbcb";
+} 
+function changeColorb2(){
+    button[1].style.background = "#d6cbcb";
+    button[1].style.color = "black"
+}  
+function returnOriginalColorb2(){
+    button[1].style.background = "#dd1616";
+    button[1].style.color = "#d6cbcb";
+} 
+button[0].addEventListener('mouseover', changeColorb1, false);
+button[0].addEventListener('mouseout', returnOriginalColorb1, false);
+button[1].addEventListener('mouseover', changeColorb2, false);
+button[1].addEventListener('mouseout', returnOriginalColorb2, false);
+
 function verify(){
+    
     const info = document.querySelector('#info');
     const objAux = {
         name: '',
@@ -77,6 +96,7 @@ function verify(){
         weight: '',
         height: ''
     }
+
     objAux.name = info.querySelector('.nome').value;
     objAux.surname = info.querySelector('.sobrenome').value;
     objAux.weight = info.querySelector('.peso').value;
@@ -85,9 +105,12 @@ function verify(){
     let aux = isNumber(objAux.name, objAux.surname,objAux.weight, objAux.height);
     (aux) ? seeData() : stop();
 }
+
 function clear(){
-    location.reload(true);
+    location.reload();
+    console.log('FOI');
 }
+
 function stop(){
     alert("Insira valores válidos e preencha os campos corretamente!");
     clear();
